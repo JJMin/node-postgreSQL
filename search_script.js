@@ -1,5 +1,6 @@
 const pg = require("pg");
 const settings = require("./settings"); //settings.json
+const moment = require("moment");
 
 const client = new pg.Client({
   user: settings.user,
@@ -31,9 +32,9 @@ client.connect(err => {
       );
       result.rows.forEach(row => {
         console.log(
-          `- ${row.id}: ${row.first_name} ${row.last_name}, born '${
+          `- ${row.id}: ${row.first_name} ${row.last_name}, born '${moment(
             row.birthdate
-          }'`
+          ).format("YYYY-MM-DD")}'`
         );
       });
       client.end();
